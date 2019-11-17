@@ -1,0 +1,352 @@
+
+$dark: #080907
+$light: #ffffff
+$gray: #eeeeee
+$primary: #f4b13e
+$lightGreen: #c0d8be
+
+$bp-sm: 580px
+$bp-md: 767px
+$bp-lg: 992px
+$bp-xl: 1199px
+
+// app root
+#k-product-rec-root
+  position: relative
+  min-height: 600px
+  height: 100vh
+
+  .k-headline
+    margin: 0 0 1rem
+
+  .k-fshero--btn .k-button
+    display: inline-block
+
+// hero / panels paarent
+.k-fshero
+  position: relative
+  min-height: 600px
+  max-height: 1200px
+  height: 100vh
+  background-size: 100% auto
+  background-repeat: no-repeat
+  background-position: center top
+  background-attachment: fixed
+
+  &--panel 
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    display: flex
+    align-items: center
+
+  &--centered
+    width: 100%
+    position: relative
+    z-index: 199
+    padding-top: 4em
+    padding-bottom: 4em
+
+// fixed controls (back btn, current)
+.k-fshero--fixed
+  position: fixed
+  z-index: 1099
+  top: 0
+  left: 0
+  width: 100%
+  line-height: 1
+
+  .k-inner
+    display: flex
+    justify-content: space-between
+    height: 5px
+    overflow: visible
+
+.k-fshero--current
+  padding: 1rem 10px 10px
+  span 
+    display: inline-block
+
+.k-fshero--back
+  outline: none
+  border: none
+  appearance: none
+  margin: 1rem 0 0
+  padding: 0
+  text-transform: uppercase
+  transition: opacity 0.2s ease
+  &:hover
+    opacity: 0.5
+    cursor: pointer
+
+// image fill util
+.k-image-fill
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-size: cover
+  background-position: center center
+
+.k-fshero--intro
+  background-color: $dark
+  .k-image-fill
+    background-position: left center
+
+.k-fshero--intro-bg
+  opacity: 0
+  transition: opacity 0.5s linear
+  &.k-image-loaded
+    opacity: 1
+
+// first-slide specific
+.k-fshero--intro
+  background: $dark
+  text-align: center
+  color: $light
+
+  .k-hero--action
+    padding-top: 1rem
+
+// 2nd slide specific
+.k-fshero--reason,
+.k-fshero--feature
+  .k-headline
+    text-align: center
+    padding-bottom: 2rem
+
+.k-fshero--btn
+  padding-top: 2rem
+  text-align: center
+
+// inputs list
+.k-reasons--list
+  list-style: none
+  margin: 0
+  padding: 0
+
+  @media (min-width: $bp-md)
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-around
+    align-items: stretch
+
+  li
+    display: block
+    border: 1px solid $gray
+    margin-bottom: 0.5em
+    transition: border 0.3s ease
+
+    &.k-active
+      background: $light
+      border-color: $dark
+
+    @media (min-width: $bp-md)
+      flex-basis: 15.5%
+
+      .k-fshero--feature &
+        flex-basis: 13%
+
+    label
+      position: relative
+      overflow: hidden
+      cursor: pointer
+      display: flex
+      align-items: center
+      padding: 1em
+
+      @media (min-width: $bp-md)
+        display: block
+        padding: 2em 0.5em
+      @media (min-width: $bp-lg)
+        padding: 3em 1em
+
+      input[type="checkbox"]
+        position: absolute
+        left: -99px
+
+        &:checked 
+          + .k-feature--icon span,
+          + .k-reason--icon .k-reason--icon-bg
+            background: $lightGreen
+            transform: translateY(0)
+          + .k-reason--icon .k-reason--icon-img
+            transform: translateY(-0.25em)
+
+    .k-reason--title
+      text-align: center
+      h5 
+        font-size: 1.2em
+        margin: 0
+      @media (min-width: $bp-md)
+        padding-top: 1.5em
+        h5 
+          font-size: 1em
+
+.k-reason--icon
+  font-size: 55%
+  margin-right: 2em
+
+  @media (min-width: $bp-md)
+    margin-right: 0
+  @media (min-width: $bp-lg)
+    font-size: 75%
+  @media (min-width: $bp-xl)
+    font-size: 100%
+
+  figure 
+    position: relative
+    width: 5em
+    height: 5em
+    margin: 0 auto
+  .k-reason--icon-img
+    display: block
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: auto 100%
+    transition: transform 0.3s ease
+  .k-reason--icon-bg
+    display: block
+    position: absolute
+    top: 0.5em
+    left: 0.5em
+    bottom: 0.5em
+    right: 0.5em
+    background: $gray
+    border-radius: 50%
+    transform: translateY(0.5em)
+    transition: background 0.3s ease, transform 0.3s ease
+
+label[for="reason-5"] 
+  .k-reason--icon .k-reason--icon-img
+    background-size: 100% auto
+
+.k-feature--icon
+  font-size: 65%
+  margin-right: 2em
+
+  @media (min-width: $bp-md)
+    margin-right: 0
+  @media (min-width: $bp-lg)
+    font-size: 75%
+  @media (min-width: $bp-xl)
+    font-size: 100%
+
+  span 
+    display: block
+    width: 4em
+    height: 4em
+    border-radius: 50%
+    background: $gray
+    margin: 0 auto
+    text-align: center
+    line-height: 4
+    transform: translateY(0.25rem)
+    transition: background 0.3s ease, transform 0.3s ease
+
+
+.k-fshero-panel-result
+  max-height: none
+  height: auto
+.k-fshero--result
+  display: block
+  
+.k-fshero--results-hero,
+.k-fshero--results-body
+  display: block
+  width: 100%
+
+.k-fshero--results-hero
+  @media (min-width: $bp-md)
+    display: flex
+    align-items: center
+
+.k-resulthero--top-img
+  figure 
+    margin: 0
+    display: block
+    position: relative
+    overflow: hidden
+    padding-bottom: 65%
+    background-size: 100% auto
+    background-position: center center
+
+  @media (min-width:$bp-md)
+    width: 50%
+    flex-basis: 50%
+    order: 2
+    flex-grow: 2
+
+    figure 
+      padding-bottom: 120%
+      background-size: cover
+
+.k-resulthero--top-info
+  padding: 3em 2em
+  @media (min-width:$bp-md)
+    flex-basis: 50%
+  @media (min-width:$bp-lg)
+    padding: 3em 3em
+  small
+    text-transform: uppercase
+
+.k-resulthero--top-text
+  @media (min-width:$bp-md)
+    width: 50%
+
+.k-resulthero--top-btn
+  padding-top: 1em
+  span 
+    display: block
+    font-size: 0.8em
+    text-transform: uppercase
+    text-align: center
+    padding-top: 1em
+
+    @media (min-width: $bp-sm)
+      display: inline-block
+      margin-left: 1.5em
+      text-align: left
+      padding-top: 0
+
+.k-fshero--results-body
+  padding: 6em 0 5em
+
+  > .k-inner:first-of-type
+    padding-bottom: 4rem
+
+  .k-productcard
+    width: 48%
+    float: left
+    margin-right: 2%
+
+    .k-button--default
+      width: 100%
+      display: block
+      &:hover
+        color: $light !important
+
+    figure 
+      margin: 0 auto
+      img 
+        display: block
+        width: 100%
+        height: auto
+
+  .k-headline
+    text-align: center
+
+
+.k-fsresults--related
+  
+  overflow: scroll
+
+  
