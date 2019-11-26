@@ -2,6 +2,7 @@ import React, { useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
+import PanelButton from './PanelButton';
 import { checklistChangeHandler, classnames } from '../lib/utilities';
 import { FEATURE_OPTIONS } from '../constants';
 import { PANEL_MOTION_VARIANTS } from '../lib/motion';
@@ -44,12 +45,12 @@ const FeaturePanel = ({ direction, mode, screenSize, features, setFeatures, setM
             </li>)}
           </ul>
           
-          <div className="k-fshero--btn">
-            <Button 
-              anchor={false} 
-              variant="primary"
-              onClick={onNextClick}>Get Results &rarr;</Button>
-          </div>
+          <PanelButton 
+            disabled={features.length === 0}
+            onNextClick={onNextClick}>
+            Get Results &rarr;
+          </PanelButton>
+
         </Inner>
       </div>
     </motion.div>

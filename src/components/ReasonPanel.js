@@ -2,7 +2,8 @@
 import React, { useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { Inner, Headline, Button } from './Base';
+import { Inner, Headline } from './Base';
+import PanelButton from './PanelButton';
 import { checklistChangeHandler, classnames } from '../lib/utilities';
 import { REASON_OPTIONS, REASON_HEADLINE } from '../constants';
 import { PANEL_MOTION_VARIANTS } from '../lib/motion';
@@ -57,15 +58,11 @@ const ReasonPanel = ({
             </li>)}
           </ul>
           
-          <div className="k-fshero--btn">
-            <motion.div>
-              <Button 
-                anchor={false} 
-                variant="primary"
-                disabled={reasons.length === 0}
-                onClick={onNextClick}>Next &rarr;</Button>
-            </motion.div>
-          </div>
+          <PanelButton 
+            disabled={reasons.length === 0} 
+            onNextClick={onNextClick}>
+            Next &rarr;
+          </PanelButton>
         </Inner>
       </div>
     </motion.div>

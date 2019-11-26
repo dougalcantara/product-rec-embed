@@ -2,7 +2,6 @@ import {
   FEATURE_OPTIONS, 
   REASON_OPTIONS, 
   PRODUCT_ASSOCIATIONS,
-  PET_PRODUCT_ASSOCIATIONS,
 } from '../constants';
 
 

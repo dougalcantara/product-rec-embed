@@ -4,27 +4,12 @@ import { motion } from 'framer-motion';
 import { Inner, Headline, BodyText, Button } from './Base';
 import LazyImage from './LazyImage';
 import { INTRO_BG } from '../constants';
-import { PANEL_MOTION_VARIANTS } from '../lib/motion';
+import { 
+  PANEL_MOTION_VARIANTS,
+  CONTENT_MOTION_VARIANTS,
+  CONTENT_MOTION_TRANSITION
+} from '../lib/motion';
 
-const initial = {
-  opacity: 0,
-  y: 100,
-};
-const animate = {
-  opacity: 1,
-  y: 0,
-};
-const transition = {
-  delay: 0.35,
-  opacity: {
-    ease: 'linear',
-    duration: 1
-  },
-  y: {
-    type: 'spring',
-    duration: 1
-  }
-}
 
 const IntroPanel = ({ direction, setMinHeight, screenSize, onPrimaryClick, onSecondaryClick }) => {
   const panelRef = createRef();
@@ -44,7 +29,11 @@ const IntroPanel = ({ direction, setMinHeight, screenSize, onPrimaryClick, onSec
       <div className="k-fshero--centered" ref={panelRef}>
         <Inner size="md">
             
-          <motion.div initial={initial} animate={animate} transition={transition}>
+          <motion.div
+            initial='initial'
+            animate='animate'
+            variants={CONTENT_MOTION_VARIANTS}
+            transition={CONTENT_MOTION_TRANSITION}>
             <Headline size="lg">Welcome To The Koi CBD Product Finder</Headline>
             <BodyText>I'm interested in CBD products for...</BodyText>
             <div className="k-hero--action">
@@ -55,7 +44,7 @@ const IntroPanel = ({ direction, setMinHeight, screenSize, onPrimaryClick, onSec
               <Button 
                 anchor={false} 
                 variant="secondary"
-                onClick={onSecondaryClick}>My Pet</Button>
+                onClick={onSecondaryClick}>My Pet &rarr;</Button>
             </div>
           </motion.div>
           

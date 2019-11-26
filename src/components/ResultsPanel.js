@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
+import LazyImage from './LazyImage';
 import { getRecommendedProducts } from '../lib/recommendation';
 import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 
@@ -35,7 +36,9 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
         {hero &&
         <div className="k-fshero--results-hero">
           <div className="k-resulthero--top-img">
-            <figure style={{ backgroundImage: `url(${hero.image})`}}></figure>
+            <figure>
+              <LazyImage className="k-fshero--intro-bg" src={hero.image} />
+            </figure>
           </div>
           <div className="k-resulthero--top-info">
             <div className="k-resulthero--top-liner">
@@ -68,7 +71,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                     <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
                     <p className="k-accent-text">Subtitle text can go here.</p>
                   </div>
-                  <div clasName="k-productcard--action">
+                  <div className="k-productcard--action">
                     <a href="#buy-now" className="k-button k-button--default">Buy Now</a>
                   </div>
                 </div>

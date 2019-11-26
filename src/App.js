@@ -59,11 +59,13 @@ const App = () => {
     <section 
       className={`k-fshero k-fshero-panel-${panelType} k-fshero-mode-${mode}`} 
       style={{ minHeight, backgroundImage: `url(${PANEL_BG})` }}>
-      {showControls &&
-      <FixedControls
-        activeIndex={activeIndex}
-        panelType={panelType}
-        onBackClick={e => goToPanel(e, PANEL_TYPES[activeIndex - 1], 'prev')} />}
+      <AnimatePresence>
+        {showControls &&
+        <FixedControls
+          activeIndex={activeIndex}
+          panelType={panelType}
+          onBackClick={e => goToPanel(e, PANEL_TYPES[activeIndex - 1], 'prev')} />}
+      </AnimatePresence>
       {loaded &&
       <AnimatePresence custom={direction}>
         {(panelType === 'intro' &&

@@ -3,7 +3,7 @@ export const PANEL_TYPES = [
   'intro', 
   'reason', 
   'feature', 
-  'results'
+  'result'
 ];
 
 export const INTRO_BG = 'https://cdn2.hubspot.net/hubfs/5273025/mag/product-finder-hero.jpg';
