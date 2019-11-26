@@ -3,18 +3,20 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
 import { checklistChangeHandler, classnames } from '../lib/utilities';
-import { FEATURE_OPTIONS, MOTION_VARIANTS } from '../constants';
+import { FEATURE_OPTIONS } from '../constants';
+import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 
-const FeaturePanel = ({ direction, features, setFeatures, setMinHeight, onNextClick }) => {
+const FeaturePanel = ({ direction, mode, screenSize, features, setFeatures, setMinHeight, onNextClick }) => {
   const panelRef = createRef();
+
   useEffect(() => {
     setMinHeight(panelRef.current.offsetHeight);
-  }, []);
+  }, [screenSize]);
 
   return (
     <motion.div
       className="k-fshero--panel k-fshero--feature"
-      variants={MOTION_VARIANTS}
+      variants={PANEL_MOTION_VARIANTS}
       custom={direction}
       initial="initial"
       animate="animate"
@@ -24,7 +26,7 @@ const FeaturePanel = ({ direction, features, setFeatures, setMinHeight, onNextCl
           <Headline size="md">Which Features of CBD are Most Important to You?</Headline>
 
           <ul className="k-reasons--list">
-            {FEATURE_OPTIONS.map((feature, i) => 
+            {FEATURE_OPTIONS[mode].map((feature, i) => 
             <li key={i} className={classnames({'k-active': features.indexOf(feature) > -1})}>
               <label htmlFor={`feature-${i}`}>
                 <input

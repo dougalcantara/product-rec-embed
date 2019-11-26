@@ -2,8 +2,9 @@ import React, { createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Inner, Headline, BodyText, Button } from './Base';
-import LazyImage from './lib/LazyImage';
-import { MOTION_VARIANTS, INTRO_BG } from '../constants';
+import LazyImage from './LazyImage';
+import { INTRO_BG } from '../constants';
+import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 
 const initial = {
   opacity: 0,
@@ -25,16 +26,17 @@ const transition = {
   }
 }
 
-const IntroPanel = ({ direction, setMinHeight, onPrimaryClick, onSecondaryClick }) => {
+const IntroPanel = ({ direction, setMinHeight, screenSize, onPrimaryClick, onSecondaryClick }) => {
   const panelRef = createRef();
+
   useEffect(() => {
     setMinHeight(panelRef.current.offsetHeight);
-  }, []);
+  }, [screenSize]);
 
   return (
     <motion.div
       className="k-fshero--panel k-fshero--intro"
-      variants={MOTION_VARIANTS}
+      variants={PANEL_MOTION_VARIANTS}
       custom={direction}
       initial="initial"
       animate="animate"

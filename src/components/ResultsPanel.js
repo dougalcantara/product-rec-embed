@@ -3,28 +3,29 @@ import React, { useRef, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
 import { getRecommendedProducts } from '../lib/recommendation';
-import { MOTION_VARIANTS } from '../constants';
+import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 
 const parseProductData = () => {
   const script = document.getElementById('k-products-data');
   return JSON.parse(script.textContent);
 };
 
-const ResultsPanel = ({ direction, reasons, features, setMinHeight }) => {
+const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHeight }) => {
   const panelRef = useRef();
   const productData = useRef(parseProductData());
 
-  useEffect(() => {
-    console.log('Product data: ', productData.current);
-    setMinHeight(panelRef.current.offsetHeight);
-  }, []);
+  console.log('Product data: ', productData.current);
 
-  const { hero, products } = getRecommendedProducts(productData.current, reasons, features);
+  useEffect(() => {
+    setMinHeight(panelRef.current.offsetHeight);
+  }, [screenSize]);
+
+  const { hero, products } = getRecommendedProducts(productData.current, reasons, features, mode);
   console.log('Products: ', products);
   return (
     <motion.div
       className="k-fshero--panel k-fshero--result"
-      variants={MOTION_VARIANTS}
+      variants={PANEL_MOTION_VARIANTS}
       custom={direction}
       initial="initial"
       animate="animate"

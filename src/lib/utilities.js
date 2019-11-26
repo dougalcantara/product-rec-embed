@@ -11,7 +11,6 @@ export const checklistChangeHandler = (item, list, callback) => {
   callback(updated);
 };
 
-
 // classname generation
 export const classnames = (...args) => {
   const classes = [];
@@ -31,3 +30,8 @@ export const classnames = (...args) => {
   });
   return classes.join(' ');
 };
+
+export const getScreenSize = () => ({
+  width: window.innerWidth,
+  height: window.innerHeight,
+});

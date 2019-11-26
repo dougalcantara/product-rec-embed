@@ -6,9 +6,6 @@ import {
 } from '../constants';
 
 
-// flat list of reason names
-const reasonOptions = REASON_OPTIONS.map(opt => opt.name);
-
 // return an array of matched reason/feature indexes
 const getGroupMatches = (options, chosen, indexes) => chosen.map(item => {
   const index = options.indexOf(item);
@@ -16,23 +13,23 @@ const getGroupMatches = (options, chosen, indexes) => chosen.map(item => {
 }).filter(i => i > -1);
 
 
-
 // return a 0 - 100 relevance score per product
-export const getRecommendedProducts = (productData, reasons, features, isPet = false) => {
-  if (isPet) {
-    // return only pet products
-  }
+export const getRecommendedProducts = (productData, reasons, features, mode) => {
+  // constants keys match mode
+  const associations = PRODUCT_ASSOCIATIONS[mode];
+  const reasonOptions = REASON_OPTIONS[mode].map(opt => opt.name);
+  const featureOptions = FEATURE_OPTIONS[mode];
 
   // keys for iterating/sorting
-  const assocKeys = Object.keys(PRODUCT_ASSOCIATIONS);
+  const assocKeys = Object.keys(associations);
 
   // get relevance score of each product group
   const matchRelevance = assocKeys.reduce((result, key) => {
-    const reasonIndexes = PRODUCT_ASSOCIATIONS[key].reasons;
-    const featureIndexes = PRODUCT_ASSOCIATIONS[key].features;
+    const reasonIndexes = associations[key].reasons;
+    const featureIndexes = associations[key].features;
 
     const reasonMatches = getGroupMatches(reasonOptions, reasons, reasonIndexes);
-    const featureMatches = getGroupMatches(FEATURE_OPTIONS, features, featureIndexes);
+    const featureMatches = getGroupMatches(featureOptions, features, featureIndexes);
 
     result[key] = (reasonMatches.length + featureMatches.length) / (reasonIndexes.length + featureIndexes.length);
     return result;
@@ -45,11 +42,11 @@ export const getRecommendedProducts = (productData, reasons, features, isPet = f
   // all product id's in order
   const orderedProductIds = matchGroupsOrdered.reduce((result, key, i) => {
     if (i === 0) return result;
-    return [ ...result, ...PRODUCT_ASSOCIATIONS[key].id ];
+    return [ ...result, ...associations[key].id ];
   }, []);
 
   // most relevant group match (used in hero)
-  const { description, url, image } = PRODUCT_ASSOCIATIONS[matchGroupsOrdered[0]];
+  const { description, url, image } = associations[matchGroupsOrdered[0]];
   
   // hero + product info
   return {

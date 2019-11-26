@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { classnames } from '../../lib/utilities';
+import { classnames } from '../lib/utilities';
 
 const LazyImage = ({ src, onLoad, className }) => {
   const [loaded, setLoaded] = useState(false);

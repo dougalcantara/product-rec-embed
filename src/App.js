@@ -6,19 +6,22 @@ import ReasonPanel from './components/ReasonPanel';
 import FeaturePanel from './components/FeaturePanel';
 import ResultsPanel from './components/ResultsPanel';
 import FixedControls from './components/FixedControls';
+import { getScreenSize } from './lib/utilities';
 import { PANEL_TYPES, PANEL_BG }  from './constants';
 
 
 const App = () => {
   const [loaded, setLoaded] = useState(false);
   const [panelType, setPanelType] = useState('intro');
+  const [mode, setMode] = useState('default'); // default, or pet
   const [reasons, setReasons] = useState([]);
   const [features, setFeatures] = useState([]);
   const [minHeight, setMinHeight] = useState('none');
   const [direction, setDirection] = useState('none'); // none, next, or prev
+  const [screenSize, setScreenSize] = useState(getScreenSize());
 
   const activeIndex = useMemo(() => PANEL_TYPES.indexOf(panelType), [panelType]);
-  const showControls = useMemo(() => activeIndex > 0 && activeIndex < PANEL_TYPES.length - 1, [activeIndex]);
+  const showControls = useMemo(() => activeIndex > 0 && activeIndex <= PANEL_TYPES.length, [activeIndex]);
 
   const timeout = useRef(null);
   useEffect(() => {
@@ -27,7 +30,7 @@ const App = () => {
       window.addEventListener('resize', () => {
         if (timeout.current) window.clearTimeout(timeout.current);
         timeout.current = window.setTimeout(() => {
-          // handle resize
+          setScreenSize(getScreenSize());
         }, 350);
       });
     }
@@ -38,51 +41,55 @@ const App = () => {
     setDirection(direction);
     setPanelType(panel);
   };
+  const switchMode = (e, mode) => {
+    setMode(mode);
+    goToPanel(e, 'reason', 'next');
+  };
   const resetAll = e => {
     e.preventDefault();
     setReasons([]);
     setFeatures([]);
+    setMode('default');
     goToPanel(e, 'intro', 'prev');
   };
 
+  const passThroughProps = { direction, mode, setMinHeight, screenSize };
+  
   return (
     <section 
-      className={`k-fshero k-fshero-panel-${panelType}`} 
+      className={`k-fshero k-fshero-panel-${panelType} k-fshero-mode-${mode}`} 
       style={{ minHeight, backgroundImage: `url(${PANEL_BG})` }}>
       {showControls &&
       <FixedControls
         activeIndex={activeIndex}
+        panelType={panelType}
         onBackClick={e => goToPanel(e, PANEL_TYPES[activeIndex - 1], 'prev')} />}
       {loaded &&
       <AnimatePresence custom={direction}>
         {(panelType === 'intro' &&
-          <IntroPanel 
+          <IntroPanel
+            {...passThroughProps}
             key="intro"
-            direction={direction}
-            setMinHeight={setMinHeight}
-            onPrimaryClick={e => goToPanel(e, 'reason')}
-            onSecondaryClick={e => goToPanel(e, 'result')} />) ||
+            onPrimaryClick={e => switchMode(e, 'default')}
+            onSecondaryClick={e => switchMode(e, 'pet')} />) ||
         (panelType === 'reason' &&
-          <ReasonPanel 
+          <ReasonPanel
+            {...passThroughProps}
             key="reason"
-            direction={direction}
-            setMinHeight={setMinHeight}
             reasons={reasons}
             setReasons={setReasons}
             onNextClick={e => goToPanel(e, 'feature')} />) ||
         (panelType === 'feature' &&
-          <FeaturePanel 
+          <FeaturePanel
+            {...passThroughProps}
             key="feature"
-            direction={direction}
-            setMinHeight={setMinHeight}
             features={features}
             setFeatures={setFeatures}
             onNextClick={e => goToPanel(e, 'result')} />) ||
         (panelType === 'result' &&
           <ResultsPanel
+            {...passThroughProps}
             key="result"
-            direction={direction}
-            setMinHeight={setMinHeight}
             reasons={reasons}
             features={features}
             onStartOver={e => resetAll(e)} />)}

@@ -1,32 +1,42 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
 import { checklistChangeHandler, classnames } from '../lib/utilities';
-import { REASON_OPTIONS, MOTION_VARIANTS } from '../constants';
+import { REASON_OPTIONS, REASON_HEADLINE } from '../constants';
+import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 
-
-const ReasonPanel = ({ direction, reasons, setReasons, setMinHeight, onNextClick }) => {
+const ReasonPanel = ({ 
+  direction, 
+  mode, 
+  screenSize, 
+  reasons, 
+  setReasons, 
+  setMinHeight, 
+  onNextClick 
+}) => {
   const panelRef = createRef();
+
   useEffect(() => {
     setMinHeight(panelRef.current.offsetHeight);
-  }, []);
+  }, [screenSize]);
 
   return (
     <motion.div
       key="reason"
       className="k-fshero--panel k-fshero--reason"
-      variants={MOTION_VARIANTS}
+      variants={PANEL_MOTION_VARIANTS}
       custom={direction}
       initial="initial"
       animate="animate"
       exit="exit">
       <div className="k-fshero--centered" ref={panelRef}>
         <Inner size="lg">
-          <Headline size="md">Why Are You Looking for CBD?</Headline>
+          <Headline size="md">{ REASON_HEADLINE[mode] }</Headline>
           
           <ul className="k-reasons--list">
-            {REASON_OPTIONS.map((reason, i) => 
+            {REASON_OPTIONS[mode].map((reason, i) => 
             <li key={i} className={classnames({'k-active': reasons.indexOf(reason.name) > -1})}>
               <label htmlFor={`reason-${i}`}>
                 <input 
@@ -48,10 +58,13 @@ const ReasonPanel = ({ direction, reasons, setReasons, setMinHeight, onNextClick
           </ul>
           
           <div className="k-fshero--btn">
-            <Button 
-              anchor={false} 
-              variant="primary"
-              onClick={onNextClick}>Next &rarr;</Button>
+            <motion.div>
+              <Button 
+                anchor={false} 
+                variant="primary"
+                disabled={reasons.length === 0}
+                onClick={onNextClick}>Next &rarr;</Button>
+            </motion.div>
           </div>
         </Inner>
       </div>
