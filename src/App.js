@@ -23,6 +23,8 @@ const App = () => {
   const activeIndex = useMemo(() => PANEL_TYPES.indexOf(panelType), [panelType]);
   const showControls = useMemo(() => activeIndex > 0 && activeIndex <= PANEL_TYPES.length, [activeIndex]);
 
+  console.log('Controls: ', showControls);
+
   const timeout = useRef(null);
   useEffect(() => {
     if (!loaded) {
@@ -59,13 +61,13 @@ const App = () => {
     <section 
       className={`k-fshero k-fshero-panel-${panelType} k-fshero-mode-${mode}`} 
       style={{ minHeight, backgroundImage: `url(${PANEL_BG})` }}>
-      <AnimatePresence>
-        {showControls &&
-        <FixedControls
-          activeIndex={activeIndex}
-          panelType={panelType}
-          onBackClick={e => goToPanel(e, PANEL_TYPES[activeIndex - 1], 'prev')} />}
-      </AnimatePresence>
+      {showControls &&
+      <FixedControls
+        key="controls"
+        activeIndex={activeIndex}
+        panelType={panelType}
+        onStartOver={e => resetAll(e)}
+        onBackClick={e => goToPanel(e, PANEL_TYPES[activeIndex - 1], 'prev')} />}
       {loaded &&
       <AnimatePresence custom={direction}>
         {(panelType === 'intro' &&
@@ -93,8 +95,7 @@ const App = () => {
             {...passThroughProps}
             key="result"
             reasons={reasons}
-            features={features}
-            onStartOver={e => resetAll(e)} />)}
+            features={features} />)}
       </AnimatePresence>}
     </section>
   );

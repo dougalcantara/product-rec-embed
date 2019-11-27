@@ -1,59 +1,38 @@
-import React, { createRef, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
-import { Inner, Headline, BodyText, Button } from './Base';
+import { Headline, BodyText, Button } from './Base';
 import LazyImage from './LazyImage';
+import PanelWrap from './PanelWrap';
 import { INTRO_BG } from '../constants';
-import { 
-  PANEL_MOTION_VARIANTS,
-  CONTENT_MOTION_VARIANTS,
-  CONTENT_MOTION_TRANSITION
-} from '../lib/motion';
 
+const PanelBg = <LazyImage className="k-fshero--intro-bg" src={INTRO_BG} />;
 
-const IntroPanel = ({ direction, setMinHeight, screenSize, onPrimaryClick, onSecondaryClick }) => {
-  const panelRef = createRef();
-
-  useEffect(() => {
-    setMinHeight(panelRef.current.offsetHeight);
-  }, [screenSize]);
-
-  return (
-    <motion.div
-      className="k-fshero--panel k-fshero--intro"
-      variants={PANEL_MOTION_VARIANTS}
-      custom={direction}
-      initial="initial"
-      animate="animate"
-      exit="exit">
-      <div className="k-fshero--centered" ref={panelRef}>
-        <Inner size="md">
-            
-          <motion.div
-            initial='initial'
-            animate='animate'
-            variants={CONTENT_MOTION_VARIANTS}
-            transition={CONTENT_MOTION_TRANSITION}>
-            <Headline size="lg">Welcome To The Koi CBD Product Finder</Headline>
-            <BodyText>I'm interested in CBD products for...</BodyText>
-            <div className="k-hero--action">
-              <Button 
-                anchor={false} 
-                variant="primary"
-                onClick={onPrimaryClick}>Myself or a Loved One &rarr;</Button>
-              <Button 
-                anchor={false} 
-                variant="secondary"
-                onClick={onSecondaryClick}>My Pet &rarr;</Button>
-            </div>
-          </motion.div>
-          
-        </Inner>
-      </div>
-      <LazyImage className="k-fshero--intro-bg" src={INTRO_BG} />
-    </motion.div>
-  );
-};
+const IntroPanel = ({
+  direction,
+  setMinHeight,
+  screenSize,
+  onPrimaryClick,
+  onSecondaryClick }) => (
+  <PanelWrap 
+    direction={direction}
+    screenSize={screenSize}
+    setMinHeight={setMinHeight}
+    panelType="intro"
+    PanelBg={PanelBg}>
+    <Headline size="lg">Welcome To The Koi CBD Product Finder</Headline>
+    <BodyText>I'm interested in CBD products for...</BodyText>
+    <div className="k-hero--action">
+      <Button 
+        anchor={false} 
+        variant="primary"
+        onClick={onPrimaryClick}>Myself or a Loved One &rarr;</Button>
+      <Button 
+        anchor={false} 
+        variant="secondary"
+        onClick={onSecondaryClick}>My Pet &rarr;</Button>
+    </div>
+  </PanelWrap>
+);
 
 IntroPanel.defaultProps = {
   onPrimaryClick: () => {},

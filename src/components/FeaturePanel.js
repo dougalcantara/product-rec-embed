@@ -1,61 +1,50 @@
-import React, { useEffect, createRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
-import { Inner, Headline, Button } from './Base';
+import { Headline } from './Base';
 import PanelButton from './PanelButton';
+import PanelWrap from './PanelWrap';
 import { checklistChangeHandler, classnames } from '../lib/utilities';
 import { FEATURE_OPTIONS } from '../constants';
-import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 
-const FeaturePanel = ({ direction, mode, screenSize, features, setFeatures, setMinHeight, onNextClick }) => {
-  const panelRef = createRef();
-
-  useEffect(() => {
-    setMinHeight(panelRef.current.offsetHeight);
-  }, [screenSize]);
-
-  return (
-    <motion.div
-      className="k-fshero--panel k-fshero--feature"
-      variants={PANEL_MOTION_VARIANTS}
-      custom={direction}
-      initial="initial"
-      animate="animate"
-      exit="exit">
-      <div className="k-fshero--centered" ref={panelRef}>
-        <Inner size="md">
-          <Headline size="md">Which Features of CBD are Most Important to You?</Headline>
-
-          <ul className="k-reasons--list">
-            {FEATURE_OPTIONS[mode].map((feature, i) => 
-            <li key={i} className={classnames({'k-active': features.indexOf(feature) > -1})}>
-              <label htmlFor={`feature-${i}`}>
-                <input
-                  id={`feature-${i}`} 
-                  type="checkbox"
-                  checked={features.indexOf(feature) > -1}
-                  onChange={_ => checklistChangeHandler(feature, features, updated => setFeatures(updated))} />
-                <div className="k-feature--icon">
-                  <span>0{i + 1}</span>
-                </div>
-                <div className="k-reason--title">
-                  <h5>{feature}</h5>
-                </div>
-              </label>
-            </li>)}
-          </ul>
-          
-          <PanelButton 
-            disabled={features.length === 0}
-            onNextClick={onNextClick}>
-            Get Results &rarr;
-          </PanelButton>
-
-        </Inner>
-      </div>
-    </motion.div>
-  );
-};
+const FeaturePanel = ({
+  direction,
+  mode,
+  screenSize,
+  features,
+  setFeatures,
+  setMinHeight,
+  onNextClick }) => (
+  <PanelWrap
+    direction={direction}
+    screenSize={screenSize}
+    setMinHeight={setMinHeight}
+    panelType="feature">
+    <Headline size="md">Which Features of CBD are Most Important to You?</Headline>
+    <ul className="k-reasons--list">
+      {FEATURE_OPTIONS[mode].map((feature, i) => 
+      <li key={i} className={classnames({'k-active': features.indexOf(feature) > -1})}>
+        <label htmlFor={`feature-${i}`}>
+          <input
+            id={`feature-${i}`} 
+            type="checkbox"
+            checked={features.indexOf(feature) > -1}
+            onChange={_ => checklistChangeHandler(feature, features, updated => setFeatures(updated))} />
+          <div className="k-feature--icon">
+            <span>0{i + 1}</span>
+          </div>
+          <div className="k-reason--title">
+            <h5>{feature}</h5>
+          </div>
+        </label>
+      </li>)}
+    </ul>
+    <PanelButton 
+      disabled={features.length === 0}
+      onNextClick={onNextClick}>
+      Get Results &rarr;
+    </PanelButton>
+  </PanelWrap>
+);
 
 FeaturePanel.defaultProps = {
   onNextClick: () => {},

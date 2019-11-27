@@ -3,7 +3,7 @@
 export const BUTTON_VARIANTS = {
   hide: {
     opacity: 0,
-    y: 35,
+    y: 40,
   },
   show: {
     opacity: 1,
@@ -20,7 +20,7 @@ export const FIXED_CONTROLS_VARIANTS = {
   },
   animate: {
     y: 0,
-    opacity: 0,
+    opacity: 1,
   },
   exit: {
     y: -50,
@@ -31,14 +31,14 @@ export const FIXED_CONTROLS_VARIANTS = {
 
 // Panel Content motion
 export const CONTENT_MOTION_TRANSITION = {
-  delay: 0.35,
+  delay: 0.3,
   opacity: {
     ease: 'linear',
-    duration: 1,
+    duration: 0.5,
   },
   y: {
     type: 'spring',
-    duration: 1,
+    duration: 0.5,
   },
 };
 export const CONTENT_MOTION_VARIANTS = {

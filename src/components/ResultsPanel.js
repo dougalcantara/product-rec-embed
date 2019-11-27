@@ -15,14 +15,12 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
   const panelRef = useRef();
   const productData = useRef(parseProductData());
 
-  console.log('Product data: ', productData.current);
-
   useEffect(() => {
     setMinHeight(panelRef.current.offsetHeight);
   }, [screenSize]);
 
   const { hero, products } = getRecommendedProducts(productData.current, reasons, features, mode);
-  console.log('Products: ', products);
+
   return (
     <motion.div
       className="k-fshero--panel k-fshero--result"
