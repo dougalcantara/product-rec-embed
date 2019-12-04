@@ -58,9 +58,9 @@ $bp-xl: 1199px
 
 // fixed controls (back btn, current)
 .k-fshero--fixed
-  position: fixed
+  position: absolute
   z-index: 1099
-  top: 0
+  top: 5vh
   left: 0
   width: 100%
   line-height: 1
@@ -121,6 +121,14 @@ $bp-xl: 1199px
 
   .k-hero--action
     padding-top: 1rem
+
+    .k-button
+      @media (max-width: 580px)
+        width: 100%
+
+    .k-button--primary
+      @media (max-width: 766px)
+        margin-right: 10px
 
 // 2nd slide specific
 .k-fshero--reason,
@@ -279,6 +287,7 @@ label[for="reason-5"]
   @media (min-width: $bp-md)
     display: flex
     align-items: center
+    height: 100vh
 
 .k-resulthero--top-img
   figure 
@@ -297,7 +306,9 @@ label[for="reason-5"]
     flex-grow: 2
 
     figure 
-      padding-bottom: 120%
+      padding-bottom: 0
+      height: 100vh
+      min-height: 550px
       background-size: cover
 
 .k-resulthero--top-info
@@ -334,10 +345,19 @@ label[for="reason-5"]
   > .k-inner:first-of-type
     padding-bottom: 4rem
 
+  .k-headline
+    text-align: center
+
+
+.k-fsresults--related
+  overflow: scroll
+  display: flex
+
   .k-productcard
-    width: 48%
-    float: left
-    margin-right: 2%
+    margin-right: 20px
+
+    .k-productcard--liner
+      min-width: 200px
 
     .k-button--default
       width: 100%
@@ -351,13 +371,5 @@ label[for="reason-5"]
         display: block
         width: 100%
         height: auto
-
-  .k-headline
-    text-align: center
-
-
-.k-fsresults--related
-  
-  overflow: scroll
 
   

@@ -21,11 +21,11 @@ export const BodyText = ({ children }) => (
   </div>
 );
 
-export const Button = ({ variant, anchor, children, disabled, onClick }) => {
+export const Button = ({ variant, anchor, href, title, target, children, disabled, onClick }) => {
   const classname = `k-button k-button--${variant}`;
   return (
     anchor !== false ?
-    <a href={anchor.href} title={anchor.title} className={classname} target={anchor.target}>{children}</a> :
+    <a href={href} title={title} className={classname} target={target}>{children}</a> :
     <button type="button" className={classname} disabled={disabled} onClick={onClick}>{children}</button>
   );
 };

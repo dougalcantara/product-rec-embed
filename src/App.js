@@ -23,8 +23,6 @@ const App = () => {
   const activeIndex = useMemo(() => PANEL_TYPES.indexOf(panelType), [panelType]);
   const showControls = useMemo(() => activeIndex > 0 && activeIndex <= PANEL_TYPES.length, [activeIndex]);
 
-  console.log('Controls: ', showControls);
-
   const timeout = useRef(null);
   useEffect(() => {
     if (!loaded) {

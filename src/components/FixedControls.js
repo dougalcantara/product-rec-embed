@@ -39,7 +39,7 @@ const FixedControls = ({ activeIndex, panelType, onBackClick, onStartOver }) => 
           <motion.div
             key="btns-result"
             className="k-fshero--fixed-btns"
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0, position: 'relative' }}
             exit={{ opacity: 0, y: -50, position: 'absolute' }}
             transition={CONTENT_MOTION_TRANSITION}>

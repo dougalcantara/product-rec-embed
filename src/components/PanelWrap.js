@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, createRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Inner } from './Base';
 import {
@@ -20,7 +20,7 @@ const PanelWrap = ({
   PanelBg,
   children
 }) => {
-  const panelRef = useRef();
+  const panelRef = createRef();
   const panelHeight = useRef(window.innerHeight);
 
   useEffect(() => {

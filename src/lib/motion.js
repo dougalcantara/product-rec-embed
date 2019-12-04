@@ -15,7 +15,7 @@ export const BUTTON_VARIANTS = {
 // Fixed top bar variants
 export const FIXED_CONTROLS_VARIANTS = {
   initial: {
-    y: -50,
+    y: 50,
     opacity: 0,
   },
   animate: {
