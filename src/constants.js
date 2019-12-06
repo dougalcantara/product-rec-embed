@@ -53,7 +53,7 @@ export const PRODUCT_ASSOCIATIONS = {
       sku: '',
       reasons: [0, 1, 4, 5],
       features: [1, 2, 5],
-      url: 'http://localhost:3000/koicbd/cbd-tinctures?flavored=true',
+      url: '/cbd-tinctures?flavored=true',
       description: 'Find out why people around the world are using Koi Naturals full-spectrum CBD oils every day to restore balance to their lives.',
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
       weights: {}
@@ -63,9 +63,9 @@ export const PRODUCT_ASSOCIATIONS = {
       sku: '',
       reasons: [0, 1, 4, 5],
       features: [1, 2, 6],
-      url: 'http://localhost:3000/koicbd/product/koi-naturals-natural/',
+      url: '/product/koi-naturals-natural/',
       description: 'Find out why people around the world are using Koi Naturals full-spectrum CBD oils every day to restore balance to their lives.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-natural.jpg',
       weights: {}
     },
     'Gummies - Regular or Sour': {
@@ -73,18 +73,18 @@ export const PRODUCT_ASSOCIATIONS = {
       sku: '',
       reasons: [0, 1, 4, 5],
       features: [0, 1, 2, 5],
-      url: '#gummies',
+      url: '/product/cbd-gummies/',
       description: 'CBD edibles with delectable flavors provide an even consistency of CBD to restore balance naturally.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-edible.jpg',
       weights: {}
     },
     'Vape Juice - Flavored': {
       id: [30193, 30198, 30202, 30211, 30217],
       reasons: [0, 4],
       features: [2, 4, 5],
-      url: 'http://localhost:3000/koicbd/cbd-vape?flavored=true',
+      url: '/cbd-vape?flavored=true',
       description: 'Enjoy an even distribution of CBD throughout your day. Vape them on their own or add to other e-liquids. Available in 7 awesome flavors.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-vape.jpg',
       weights: {}
     },
     'Vape Juice - Unflavored': {
@@ -92,27 +92,27 @@ export const PRODUCT_ASSOCIATIONS = {
       sku: '',
       reasons: [0, 4],
       features: [2, 4, 6],
-      url: 'http://localhost:3000/koicbd/product/white-koi-cbd/',
+      url: '/product/white-koi-cbd/',
       description: 'Enjoy an even distribution of CBD throughout your day. Vape them on their own or add to other e-liquids.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-natural-vape.jpg',
       weights: {}
     },
     'Healing Balm': {
       id: [424649, 503515],
       reasons: [2],
       features: [3],
-      url: 'http://localhost:3000/koicbd/cbd-topicals?balm_only=true',
+      url: '/cbd-topicals?balm_only=true',
       description: 'Relax and rejuvenate with all-purpose CBD topicals. Perfect for promoting beautiful, naturally healthy skin.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-balm.jpg',
       weights: {}
     },
     'Koi Lotion' : {
       id: [559149],
       reasons: [3],
       features: [3],
-      url: 'http://localhost:3000/koicbd/product/lavender-koi/',
+      url: '/product/lavender-koi/',
       description: 'Relax and rejuvenate with all-purpose CBD topicals. Perfect for promoting beautiful, naturally healthy skin.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-lotion.jpg',
       weights: {}
     },
   },
@@ -122,9 +122,9 @@ export const PRODUCT_ASSOCIATIONS = {
       sku: 'PETSPRY',
       reasons: [],
       features: [1],
-      url: 'http://localhost:3000/koicbd/product/koi-naturals-pet/',
+      url: '/product/koi-naturals-pet/',
       description: 'Specially formulated to give your pet nutrition, combined with all the benefits of full-spectrum CBD.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-spray.jpg',
       weights: {}
     },
     'Soft Pet Chews' : {
@@ -132,9 +132,9 @@ export const PRODUCT_ASSOCIATIONS = {
       sku: 'KPTSCHEWS',
       reasons: [],
       features: [0],
-      url: 'http://localhost:3000/koicbd/product/koi-cbd-soft-chews/',
+      url: '/product/koi-cbd-soft-chews/',
       description: 'Specially formulated to give your pet nutrition, combined with all the benefits of full-spectrum CBD.',
-      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/results-fpo.jpg',
+      image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-chews.jpg',
       weights: {}
     },
   },
