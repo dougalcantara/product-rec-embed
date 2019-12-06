@@ -21,6 +21,10 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
 
   const { hero, products } = getRecommendedProducts(productData.current, reasons, features, mode);
 
+  // these aren't tagged with a product type, so this is the best bet for now
+  const isVapeRec = hero.heading.includes('Vape');
+  const nonVapeProducts = products.filter(product => !product.Name.includes('Vape'));
+
   return (
     <motion.div
       className="k-fshero--panel k-fshero--result"
@@ -59,7 +63,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
           <Inner size="md">
             <div className="k-fsresults--related">
 
-              {products.map((product, i) => 
+              {isVapeRec && products.map((product, i) => 
               <div key={i} className="k-productcard">
                 <div className="k-productcard--liner">
                   <figure className="k-figure">
@@ -69,7 +73,23 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                     <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
                   </div>
                   <div className="k-productcard--action">
-                    <a href="#buy-now" className="k-button k-button--default">Buy Now</a>
+                    <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
+                  </div>
+                </div>
+              </div>)
+              }
+
+              {!isVapeRec && nonVapeProducts.map((product, i) => 
+              <div key={i} className="k-productcard">
+                <div className="k-productcard--liner">
+                  <figure className="k-figure">
+                    <img src={product.Images.split(',')[0]} alt={product.Name} />
+                  </figure>
+                  <div className="k-productcard--title">
+                    <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
+                  </div>
+                  <div className="k-productcard--action">
+                    <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
                   </div>
                 </div>
               </div>)}
