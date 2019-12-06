@@ -67,7 +67,6 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                   </figure>
                   <div className="k-productcard--title">
                     <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
-                    <p className="k-accent-text">Subtitle text can go here.</p>
                   </div>
                   <div className="k-productcard--action">
                     <a href="#buy-now" className="k-button k-button--default">Buy Now</a>

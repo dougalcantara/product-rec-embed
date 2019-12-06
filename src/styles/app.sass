@@ -23,7 +23,6 @@ $bp-xl: 1199px
     opacity: 1
     transform: translateY(0)
     transition: transform 0.3s ease, opacity 0.3s linear
-      
 
 // hero / panels paarent
 .k-fshero
@@ -36,7 +35,7 @@ $bp-xl: 1199px
   background-position: center top
   background-attachment: fixed
 
-  &--panel 
+  &--panel
     position: absolute
     top: 0
     left: 0
@@ -48,6 +47,10 @@ $bp-xl: 1199px
 
     &.k-fshero--result
       max-height: none
+
+      @media(min-width: 640px)
+        p
+          max-width: 62.5%
 
   &--centered
     width: 100%
@@ -71,7 +74,7 @@ $bp-xl: 1199px
 
 .k-fshero--current
   padding: 1rem 10px 10px
-  span 
+  span
     display: inline-block
 
 .k-fshero--back
@@ -187,7 +190,7 @@ $bp-xl: 1199px
         position: absolute
         left: -99px
 
-        &:checked 
+        &:checked
           + .k-feature--icon span,
           + .k-reason--icon .k-reason--icon-bg
             background: $lightGreen
@@ -197,12 +200,12 @@ $bp-xl: 1199px
 
     .k-reason--title
       text-align: center
-      h5 
+      h5
         font-size: 1.2em
         margin: 0
       @media (min-width: $bp-md)
         padding-top: 1.5em
-        h5 
+        h5
           font-size: 1em
 
 .k-reason--icon
@@ -216,7 +219,7 @@ $bp-xl: 1199px
   @media (min-width: $bp-xl)
     font-size: 100%
 
-  figure 
+  figure
     position: relative
     width: 5em
     height: 5em
@@ -244,7 +247,7 @@ $bp-xl: 1199px
     transform: translateY(0.5em)
     transition: background 0.3s ease, transform 0.3s ease
 
-label[for="reason-5"] 
+label[for="reason-5"]
   .k-reason--icon .k-reason--icon-img
     background-size: 100% auto
 
@@ -259,7 +262,7 @@ label[for="reason-5"]
   @media (min-width: $bp-xl)
     font-size: 100%
 
-  span 
+  span
     display: block
     width: 4em
     height: 4em
@@ -271,13 +274,12 @@ label[for="reason-5"]
     transform: translateY(0.25rem)
     transition: background 0.3s ease, transform 0.3s ease
 
-
 .k-fshero-panel-result
   max-height: none
   height: auto
 .k-fshero--result
   display: block
-  
+
 .k-fshero--results-hero,
 .k-fshero--results-body
   display: block
@@ -290,7 +292,7 @@ label[for="reason-5"]
     height: 100vh
 
 .k-resulthero--top-img
-  figure 
+  figure
     margin: 0
     display: block
     position: relative
@@ -305,7 +307,7 @@ label[for="reason-5"]
     order: 2
     flex-grow: 2
 
-    figure 
+    figure
       padding-bottom: 0
       height: 100vh
       min-height: 550px
@@ -326,7 +328,7 @@ label[for="reason-5"]
 
 .k-resulthero--top-btn
   padding-top: 1em
-  span 
+  span
     display: block
     font-size: 0.8em
     text-transform: uppercase
@@ -348,10 +350,10 @@ label[for="reason-5"]
   .k-headline
     text-align: center
 
-
 .k-fsresults--related
   overflow: scroll
   display: flex
+  align-items: flex-end
 
   .k-productcard
     margin-right: 20px
@@ -365,11 +367,9 @@ label[for="reason-5"]
       &:hover
         color: $light !important
 
-    figure 
+    figure
       margin: 0 auto
-      img 
+      img
         display: block
         width: 100%
         height: auto
-
-  
