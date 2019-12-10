@@ -5,7 +5,7 @@ import { Inner, Headline, Button } from './Base';
 import LazyImage from './LazyImage';
 import { getRecommendedProducts } from '../lib/recommendation';
 import { PANEL_MOTION_VARIANTS } from '../lib/motion';
-
+import { getScreenSize } from '../lib/utilities';
 const parseProductData = () => {
   const script = document.getElementById('k-products-data');
   return JSON.parse(script.textContent);
@@ -13,6 +13,7 @@ const parseProductData = () => {
 
 const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHeight }) => {
   const panelRef = useRef();
+  const productCards = useRef([]);
   const productData = useRef(parseProductData());
 
   useEffect(() => {
@@ -24,6 +25,60 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
   // these aren't tagged with a product type, so this is the best bet for now
   const isVapeRec = hero.heading.includes('Vape');
   const nonVapeProducts = products.filter(product => !product.Name.includes('Vape'));
+
+  const onDrag = (event, info) => {
+    const { point } = info;
+    
+    if (point.x > 0) {
+      point.x = 0;
+    }
+  };
+
+  const getCardMultiplier = () => {
+    const screenWidth = getScreenSize().width;
+    const bp = {
+      inner: {width: 1},
+      mobile: {width: 0, cardMinWidth: .765},
+      sm: {width: 580, cardMinWidth: .405},
+      md: {width: 767, cardMinWidth: .333},
+      lg: {width: 992, cardMinWidth: .225},
+    };
+
+    const { inner, mobile, sm, md, lg } = bp;
+    switch (true) {
+      case (screenWidth < sm.width): {
+        return inner.width / mobile.cardMinWidth;
+      }
+      case (screenWidth > sm.width && screenWidth < md.width): {
+        return inner.width / sm.cardMinWidth;
+      }  
+      case (screenWidth > md.width && screenWidth < lg.width): {
+        return inner.width / md.cardMinWidth;
+      }
+      case (screenWidth > lg.width): {
+        return inner.width / lg.cardMinWidth;
+      }
+      default: {
+        console.warn('default case');
+        return 1;
+      }
+    };
+  }
+
+  const getMaxSlideDistance = () => {
+    const { current } = productCards;
+    let cardWidth = 0;
+    let accumulator = 0;
+    const cardMultiplier = getCardMultiplier();
+
+    current.forEach(el => {
+      cardWidth = el.offsetWidth;
+      accumulator += el.offsetWidth;
+    });
+
+    accumulator -= (cardWidth * cardMultiplier);
+    return -accumulator;
+  };
 
   return (
     <motion.div
@@ -62,25 +117,29 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
           </Inner>
           <Inner size="md">
             <div className="k-fsresults--related">
-
+              <motion.div
+                className="k-fsresults--slider"
+                drag="x" onDrag={(event, info) => { onDrag(event, info); }}
+                dragConstraints={{ right: 0, left: getMaxSlideDistance() }}
+              >
               {isVapeRec && products.map((product, i) => 
-              <div key={i} className="k-productcard">
-                <div className="k-productcard--liner">
-                  <figure className="k-figure">
-                    <img src={product.Images.split(',')[0]} alt={product.Name} />
-                  </figure>
-                  <div className="k-productcard--title">
-                    <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
+                <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>
+                  <div className="k-productcard--liner">
+                    <figure className="k-figure">
+                      <img src={product.Images.split(',')[0]} alt={product.Name} />
+                    </figure>
+                    <div className="k-productcard--title">
+                      <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
+                    </div>
+                    <div className="k-productcard--action">
+                      <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
+                    </div>
                   </div>
-                  <div className="k-productcard--action">
-                    <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
-                  </div>
-                </div>
-              </div>)
+                </div>)
               }
-
+              
               {!isVapeRec && nonVapeProducts.map((product, i) => 
-              <div key={i} className="k-productcard">
+              <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>
                 <div className="k-productcard--liner">
                   <figure className="k-figure">
                     <img src={product.Images.split(',')[0]} alt={product.Name} />
@@ -94,6 +153,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                 </div>
               </div>)}
 
+              </motion.div>
             </div>
           </Inner>
         </div>}
