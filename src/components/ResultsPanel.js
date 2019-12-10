@@ -26,14 +26,6 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
   const isVapeRec = hero.heading.includes('Vape');
   const nonVapeProducts = products.filter(product => !product.Name.includes('Vape'));
 
-  const onDrag = (event, info) => {
-    const { point } = info;
-    
-    if (point.x > 0) {
-      point.x = 0;
-    }
-  };
-
   const getCardMultiplier = () => {
     const screenWidth = getScreenSize().width;
     const bp = {
@@ -119,10 +111,26 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
             <div className="k-fsresults--related">
               <motion.div
                 className="k-fsresults--slider"
-                drag="x" onDrag={(event, info) => { onDrag(event, info); }}
+                drag="x"
                 dragConstraints={{ right: 0, left: getMaxSlideDistance() }}
               >
-              {isVapeRec && products.map((product, i) => 
+                {isVapeRec && products.map((product, i) => 
+                  <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>
+                    <div className="k-productcard--liner">
+                      <figure className="k-figure">
+                        <img src={product.Images.split(',')[0]} alt={product.Name} />
+                      </figure>
+                      <div className="k-productcard--title">
+                        <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
+                      </div>
+                      <div className="k-productcard--action">
+                        <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
+                      </div>
+                    </div>
+                  </div>)
+                }
+
+                {!isVapeRec && nonVapeProducts.map((product, i) => 
                 <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>
                   <div className="k-productcard--liner">
                     <figure className="k-figure">
@@ -135,24 +143,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                       <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
                     </div>
                   </div>
-                </div>)
-              }
-              
-              {!isVapeRec && nonVapeProducts.map((product, i) => 
-              <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>
-                <div className="k-productcard--liner">
-                  <figure className="k-figure">
-                    <img src={product.Images.split(',')[0]} alt={product.Name} />
-                  </figure>
-                  <div className="k-productcard--title">
-                    <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
-                  </div>
-                  <div className="k-productcard--action">
-                    <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
-                  </div>
-                </div>
-              </div>)}
-
+                </div>)}
               </motion.div>
             </div>
           </Inner>
