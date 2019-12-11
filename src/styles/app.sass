@@ -346,20 +346,33 @@ label[for="reason-5"]
 
   > .k-inner:first-of-type
     padding-bottom: 4rem
+  > .k-inner:nth-of-type(2)
+    width: 100%
 
   .k-headline
     text-align: center
 
 .k-fsresults--related
-  overflow: scroll
-  display: flex
-  align-items: flex-end
+  overflow: hidden
+
+  .k-fsresults--slider
+    display: flex
+    align-items: flex-end
+
+  .k-productcard:first-of-type
+    margin-left: 20px
 
   .k-productcard
-    margin-right: 20px
+    min-width: 76.5% // DEPENDENCY: ResultsPanel.js:33
+    @media (min-width: $bp-sm)
+      min-width: 40.5% // DEPENDENCY: ResultsPanel.js:34
+    @media (min-width: $bp-md)
+      min-width: 33.333% // DEPENDENCY: ResultsPanel.js:35
+    @media (min-width: $bp-lg)
+      min-width: 22.5% // DEPENDENCY: ResultsPanel.js:36
 
     .k-productcard--liner
-      min-width: 200px
+      margin-right: 10%
 
     .k-button--default
       width: 100%
