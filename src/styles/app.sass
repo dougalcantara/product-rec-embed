@@ -317,6 +317,7 @@ $bp-xl: 1199px
     padding: 3em 3em
   small
     text-transform: uppercase
+    max-width: 10em
 
 .k-resulthero--top-text
   @media (min-width:$bp-md)
@@ -324,6 +325,7 @@ $bp-xl: 1199px
 
 .k-resulthero--top-btn
   padding-top: 1em
+  margin-bottom: 1em
   span
     display: block
     font-size: 0.8em
@@ -353,12 +355,14 @@ $bp-xl: 1199px
 
   .k-fsresults--slider
     display: flex
-    align-items: flex-end
+    align-items: center
 
   .k-productcard:first-of-type
     margin-left: 20px
 
   .k-productcard
+    max-width: 20%
+    margin: 0 auto;
     min-width: 76.5% // DEPENDENCY: ResultsPanel.js:33
     @media (min-width: $bp-sm)
       min-width: 40.5% // DEPENDENCY: ResultsPanel.js:34
@@ -376,9 +380,17 @@ $bp-xl: 1199px
       &:hover
         color: $light !important
 
+    .k-productcard--description
+      text-align: center
+      display: flex
+      justify-content: center
+      opacity: .7
+
     figure
       margin: 0 auto
       img
         display: block
         width: 100%
         height: auto
+
+

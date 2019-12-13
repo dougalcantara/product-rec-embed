@@ -98,6 +98,9 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                 <Button variant="primary" anchor href={hero.url}>Shop Now &rarr;</Button>
                 <span>Scroll For More</span>
               </div>
+              <small className="k-resulthero--disclaimer">
+                FDA Disclaimer: This product is not intended to diagnose, treat, cure or prevent any disease.
+              </small>
             </div>
           </div>
         </div>}
@@ -105,7 +108,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
         {products && 
         <div className="k-fshero--results-body">
           <Inner size="md">
-            <Headline tag="h1" size="md">More Results For You</Headline>
+            <Headline tag="h1" size="md">Based on your responses, we recommend</Headline>
           </Inner>
           <Inner size="md">
             <div className="k-fsresults--related">
@@ -138,6 +141,9 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
                     </figure>
                     <div className="k-productcard--title">
                       <h3 className="k-headline k-headline--fake k-weight--lg">{product.Name}</h3>
+                    </div>
+                    <div className="k-productcard--description">
+                      <p>{product.description}</p>
                     </div>
                     <div className="k-productcard--action">
                       <a href={product.LinkToProduct} className="k-button k-button--default">Buy Now</a>
