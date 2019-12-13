@@ -167,7 +167,7 @@ $bp-xl: 1199px
       border-color: $dark
 
     @media (min-width: $bp-md)
-      flex-basis: 15.5%
+      flex-basis: 13%
 
       .k-fshero--feature &
         flex-basis: 13%
@@ -193,7 +193,7 @@ $bp-xl: 1199px
         &:checked
           + .k-feature--icon span,
           + .k-reason--icon .k-reason--icon-bg
-            background: $lightGreen
+            background-color: $lightGreen
             transform: translateY(0)
           + .k-reason--icon .k-reason--icon-img
             transform: translateY(-0.25em)
@@ -233,7 +233,7 @@ $bp-xl: 1199px
     height: 100%
     background-position: center center
     background-repeat: no-repeat
-    background-size: auto 100%
+    background-size: contain
     transition: transform 0.3s ease
   .k-reason--icon-bg
     display: block
@@ -246,10 +246,6 @@ $bp-xl: 1199px
     border-radius: 50%
     transform: translateY(0.5em)
     transition: background 0.3s ease, transform 0.3s ease
-
-label[for="reason-5"]
-  .k-reason--icon .k-reason--icon-img
-    background-size: 100% auto
 
 .k-feature--icon
   font-size: 65%
