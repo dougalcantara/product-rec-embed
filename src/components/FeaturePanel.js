@@ -19,7 +19,7 @@ const FeaturePanel = ({
     screenSize={screenSize}
     setMinHeight={setMinHeight}
     panelType="feature">
-    <Headline size="md">Which Features of CBD are Most Important to You?</Headline>
+    <Headline size="md">How do you want to use CBD?</Headline>
     <ul className="k-reasons--list">
       {FEATURE_OPTIONS[mode].map((feature, i) => 
       <li key={i} className={classnames({'k-active': features.indexOf(feature) > -1})}>
