@@ -91,7 +91,11 @@ export const PRODUCT_ASSOCIATIONS = {
       url: '/cbd-vape?flavored=true',
       description: 'Enjoy an even distribution of CBD throughout your day. Vape them on their own or add to other e-liquids. Available in 7 awesome flavors.',
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-vape.jpg',
-      weights: {}
+      weights: {
+        features: {
+          1: 1.35
+        }
+      }
     },
     'Vape Juice - Unflavored': {
       id: [30207],
@@ -101,7 +105,11 @@ export const PRODUCT_ASSOCIATIONS = {
       url: '/product/white-koi-cbd/',
       description: 'Enjoy an even distribution of CBD throughout your day. Vape them on their own or add to other e-liquids.',
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-natural-vape.jpg',
-      weights: {}
+      weights: {
+        features: {
+          1: 1.3
+        }
+      }
     },
     'Healing Balm': {
       id: [424649, 503515],
@@ -113,7 +121,7 @@ export const PRODUCT_ASSOCIATIONS = {
       weights: {
         category: 1,
         reasons: {
-          '3': 1.5
+          3: 1.5
         },
       }
     },

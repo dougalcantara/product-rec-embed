@@ -9,10 +9,22 @@ import {
 const getGroupMatches = (options, chosen, indexes) => {
   const indexMatches = chosen.map(item => {
     const index = options.indexOf(item);
-    return indexes.indexOf(index);
+    const matchIndex = indexes.indexOf(index);
+    return matchIndex > -1 ? index : matchIndex;
   });
-  console.log('Index matches: ', indexMatches);
   return indexMatches.filter(i => i > -1);
+};
+
+const getWeightedMatches = (categoryName, associations, matches, type) => {
+  let defaultWeight = 1;
+  const weightsByType = associations[categoryName].weights[type];
+  if (weightsByType) {
+    // todo: calc weight value based on # of total options for category
+    // return a value that can be used in final calc as a multiplier
+    console.log(categoryName, weightsByType);
+    console.log('Matches: ', matches);
+  } 
+  return defaultWeight;
 };
 
 
@@ -34,11 +46,8 @@ export const getRecommendedProducts = (productData, reasons, features, mode) => 
     const reasonMatches = getGroupMatches(reasonOptions, reasons, reasonIndexes);
     const featureMatches = getGroupMatches(featureOptions, features, featureIndexes);
 
-    console.log('Reason matches: ', reasonMatches);
-    console.log('Feature matches: ', featureMatches);
-
-    // this is where we need to weight based on which index is included in matches
-
+    const reasonWeight = getWeightedMatches(key, associations, reasonMatches, 'reasons');
+    const featureWeight = getWeightedMatches(key, associations, featureMatches, 'features');
 
     result[key] = (reasonMatches.length + featureMatches.length) / (reasonIndexes.length + featureIndexes.length);
     return result;
