@@ -6,10 +6,14 @@ import {
 
 
 // return an array of matched reason/feature indexes
-const getGroupMatches = (options, chosen, indexes) => chosen.map(item => {
-  const index = options.indexOf(item);
-  return indexes.indexOf(index);
-}).filter(i => i > -1);
+const getGroupMatches = (options, chosen, indexes) => {
+  const indexMatches = chosen.map(item => {
+    const index = options.indexOf(item);
+    return indexes.indexOf(index);
+  });
+  console.log('Index matches: ', indexMatches);
+  return indexMatches.filter(i => i > -1);
+};
 
 
 // return a 0 - 100 relevance score per product
@@ -29,6 +33,12 @@ export const getRecommendedProducts = (productData, reasons, features, mode) => 
 
     const reasonMatches = getGroupMatches(reasonOptions, reasons, reasonIndexes);
     const featureMatches = getGroupMatches(featureOptions, features, featureIndexes);
+
+    console.log('Reason matches: ', reasonMatches);
+    console.log('Feature matches: ', featureMatches);
+
+    // this is where we need to weight based on which index is included in matches
+
 
     result[key] = (reasonMatches.length + featureMatches.length) / (reasonIndexes.length + featureIndexes.length);
     return result;

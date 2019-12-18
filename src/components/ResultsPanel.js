@@ -1,14 +1,46 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
 import LazyImage from './LazyImage';
 import { getRecommendedProducts } from '../lib/recommendation';
 import { PANEL_MOTION_VARIANTS } from '../lib/motion';
 import { getScreenSize } from '../lib/utilities';
+
 const parseProductData = () => {
   const script = document.getElementById('k-products-data');
   return JSON.parse(script.textContent);
+};
+
+const getCardMultiplier = () => {
+  const screenWidth = getScreenSize().width;
+  const bp = {
+    inner: {width: 1},
+    mobile: {width: 0, cardMinWidth: .765},
+    sm: {width: 580, cardMinWidth: .405},
+    md: {width: 767, cardMinWidth: .333},
+    lg: {width: 992, cardMinWidth: .225},
+  };
+
+  const { inner, mobile, sm, md, lg } = bp;
+  switch (true) {
+    case (screenWidth < sm.width): {
+      return inner.width / mobile.cardMinWidth;
+    }
+    case (screenWidth > sm.width && screenWidth < md.width): {
+      return inner.width / sm.cardMinWidth;
+    }  
+    case (screenWidth > md.width && screenWidth < lg.width): {
+      return inner.width / md.cardMinWidth;
+    }
+    case (screenWidth > lg.width): {
+      return inner.width / lg.cardMinWidth;
+    }
+    default: {
+      console.warn('default case');
+      return 1;
+    }
+  };
 };
 
 const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHeight }) => {
@@ -26,51 +58,18 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
   const isVapeRec = hero.heading.includes('Vape');
   const nonVapeProducts = products.filter(product => !product.Name.includes('Vape'));
 
-  const getCardMultiplier = () => {
-    const screenWidth = getScreenSize().width;
-    const bp = {
-      inner: {width: 1},
-      mobile: {width: 0, cardMinWidth: .765},
-      sm: {width: 580, cardMinWidth: .405},
-      md: {width: 767, cardMinWidth: .333},
-      lg: {width: 992, cardMinWidth: .225},
-    };
-
-    const { inner, mobile, sm, md, lg } = bp;
-    switch (true) {
-      case (screenWidth < sm.width): {
-        return inner.width / mobile.cardMinWidth;
-      }
-      case (screenWidth > sm.width && screenWidth < md.width): {
-        return inner.width / sm.cardMinWidth;
-      }  
-      case (screenWidth > md.width && screenWidth < lg.width): {
-        return inner.width / md.cardMinWidth;
-      }
-      case (screenWidth > lg.width): {
-        return inner.width / lg.cardMinWidth;
-      }
-      default: {
-        console.warn('default case');
-        return 1;
-      }
-    };
-  }
-
-  const getMaxSlideDistance = () => {
+  const maxSlideDistance = useMemo(() => {
     const { current } = productCards;
     let cardWidth = 0;
     let accumulator = 0;
     const cardMultiplier = getCardMultiplier();
-
     current.forEach(el => {
       cardWidth = el.offsetWidth;
       accumulator += el.offsetWidth;
     });
-
     accumulator -= (cardWidth * cardMultiplier);
     return -accumulator;
-  };
+  }, [productCards.current]);
 
   return (
     <motion.div
@@ -115,7 +114,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
               <motion.div
                 className="k-fsresults--slider"
                 drag="x"
-                dragConstraints={{ right: 0, left: getMaxSlideDistance() }}
+                dragConstraints={{ right: 0, left: maxSlideDistance }}
               >
                 {isVapeRec && products.map((product, i) => 
                   <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>

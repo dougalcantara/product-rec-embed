@@ -110,7 +110,12 @@ export const PRODUCT_ASSOCIATIONS = {
       url: '/cbd-topicals?balm_only=true',
       description: 'Relax and rejuvenate with all-purpose CBD topicals. Perfect for promoting beautiful, naturally healthy skin.',
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-balm.jpg',
-      weights: {}
+      weights: {
+        category: 1,
+        reasons: {
+          '3': 1.5
+        },
+      }
     },
     'Koi Lotion' : {
       id: [559149],
