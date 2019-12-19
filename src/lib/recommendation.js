@@ -16,15 +16,26 @@ const getGroupMatches = (options, chosen, indexes) => {
 };
 
 const getWeightedMatches = (categoryName, associations, matches, type) => {
-  let defaultWeight = 1;
+  let resultWeight = 1;
   const weightsByType = associations[categoryName].weights[type];
   if (weightsByType) {
-    // todo: calc weight value based on # of total options for category
+    // calc weight value based on # of total options for category
     // return a value that can be used in final calc as a multiplier
-    console.log(categoryName, weightsByType);
-    console.log('Matches: ', matches);
+    const weightsGroup = matches.map(match => {
+      const weightsIndex = match.toString();
+      return weightsByType[weightsIndex];
+    });
+    // get the average by group
+    resultWeight = weightsGroup.reduce((a, b) => a + b, 0) / weightsGroup.length;
+
+    // console.log('Type: ', type);
+    // console.log('Category', categoryName);
+    // console.log('Matches: ', matches);
+    // console.log('Weights: ', weightsByType);
+    // console.log('Weights array: ', weightsGroup);
+    // console.log('Average: ', averageWeight);
   } 
-  return defaultWeight;
+  return resultWeight;
 };
 
 
@@ -49,7 +60,10 @@ export const getRecommendedProducts = (productData, reasons, features, mode) => 
     const reasonWeight = getWeightedMatches(key, associations, reasonMatches, 'reasons');
     const featureWeight = getWeightedMatches(key, associations, featureMatches, 'features');
 
-    result[key] = (reasonMatches.length + featureMatches.length) / (reasonIndexes.length + featureIndexes.length);
+    const reasonTotal = reasonMatches.length * reasonWeight;
+    const featureTotal = featureMatches.length * featureWeight;
+
+    result[key] = (reasonTotal + featureTotal) / (reasonIndexes.length + featureIndexes.length);
     return result;
   }, {});
 

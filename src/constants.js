@@ -93,7 +93,7 @@ export const PRODUCT_ASSOCIATIONS = {
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-vape.jpg',
       weights: {
         features: {
-          1: 1.35
+          1: 4
         }
       }
     },
@@ -107,7 +107,7 @@ export const PRODUCT_ASSOCIATIONS = {
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-natural-vape.jpg',
       weights: {
         features: {
-          1: 1.3
+          1: 4
         }
       }
     },
