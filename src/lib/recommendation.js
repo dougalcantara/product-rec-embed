@@ -25,9 +25,15 @@ const getWeightedMatches = (categoryName, associations, matches, type) => {
       const weightsIndex = match.toString();
       return weightsByType[weightsIndex];
     });
+
+    // catch the NaN case (matches is empty)
+    if (weightsGroup.length === 0) {
+      return resultWeight;
+    }
     // get the average by group
     resultWeight = weightsGroup.reduce((a, b) => a + b, 0) / weightsGroup.length;
 
+    // leave in case we need to go back n debug this shit
     // console.log('Type: ', type);
     // console.log('Category', categoryName);
     // console.log('Matches: ', matches);
