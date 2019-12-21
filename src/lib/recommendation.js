@@ -73,13 +73,13 @@ export const getRecommendedProducts = (productData, reasons, features, mode) => 
     return result;
   }, {});
 
-  console.log('Match Relevance: ', matchRelevance);
-
   // order groups by relevance
   const matchGroupsOrdered = [ ...assocKeys ];
   matchGroupsOrdered.sort((a, b) => matchRelevance[b] - matchRelevance[a]);
 
-  console.log('Matching groups: ', matchGroupsOrdered)
+  // Uncomment when debugging
+  // console.log('Match Relevance: ', matchRelevance);
+  //console.log('Matching groups: ', matchGroupsOrdered)
 
   // all product id's in order
   const orderedProductIds = matchGroupsOrdered.reduce((result, key, i) => {

@@ -47,7 +47,6 @@ export const PRODUCT_ASSOCIATIONS = {
   default: {
     'Tincture - Flavored': {
       id: [205342, 205366, 205491],
-      sku: '',
       reasons: [0, 1, 2, 5, 6],
       features: [2],
       url: '/cbd-tinctures?flavored=true',
@@ -57,7 +56,6 @@ export const PRODUCT_ASSOCIATIONS = {
     },
     'Tincture - Unflavored': {
       id: [205502],
-      sku: '',
       reasons: [0, 1, 2, 5, 6],
       features: [2],
       url: '/product/koi-naturals-natural/',
@@ -67,7 +65,6 @@ export const PRODUCT_ASSOCIATIONS = {
     },
     'Gummies - Regular or Sour': {
       id: [30240],
-      sku: '',
       reasons: [0, 1, 5, 6],
       features: [2],
       url: '/product/cbd-gummies/',
@@ -82,7 +79,11 @@ export const PRODUCT_ASSOCIATIONS = {
       url: '/product/koi-cbd-shots/',
       description: 'Koi Wellness Shots offer the highest-quality hemp extract available, with each delivering 25mg of CBD per 2.5-ounce bottle. For a tasty wellness shot, try Watermelon or Raspberry Punch. Each is perfectly designed to bring balance to your day in the most convenient and refreshing way. If you’re searching for a great night’s sleep, our Peach Iced Tea flavor is what you’re looking for. It carries 25mg of CBD goodness combined with melatonin to calm your mind and body so that you can get the rest you’re looking for.',
       image: 'https://cdn2.hubspot.net/hubfs/5273025/mag/KOI/square-lotion.jpg',
-      weights: {}
+      weights: {
+        reasons: {
+          2: 1.5
+        },
+      }
     },
     'Vape Juice - Flavored': {
       id: [30193, 30198, 30202, 30211, 30217],
