@@ -18,7 +18,7 @@ const getGroupMatches = (options, chosen, indexes) => {
 const getWeightedMatches = (categoryName, associations, matches, type) => {
   let resultWeight = 1;
   const weightsByType = associations[categoryName].weights[type];
-  if (weightsByType) {
+  if (weightsByType && matches.length > 0) {
     // calc weight value based on # of total options for category
     // return a value that can be used in final calc as a multiplier
     const weightsGroup = matches.map(match => {
@@ -26,10 +26,6 @@ const getWeightedMatches = (categoryName, associations, matches, type) => {
       return weightsByType[weightsIndex];
     });
 
-    // catch the NaN case (matches is empty)
-    if (weightsGroup.length === 0) {
-      return resultWeight;
-    }
     // get the average by group
     resultWeight = weightsGroup.reduce((a, b) => a + b, 0) / weightsGroup.length;
 
