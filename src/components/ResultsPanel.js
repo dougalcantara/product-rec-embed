@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, createRef, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Inner, Headline, Button } from './Base';
 import LazyImage from './LazyImage';
@@ -48,6 +48,9 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
   const productCards = useRef([]);
   const productData = useRef(parseProductData());
 
+  const sliderRef = createRef();
+
+
   useEffect(() => {
     setMinHeight(panelRef.current.offsetHeight);
   }, [screenSize]);
@@ -58,7 +61,7 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
   const isVapeRec = hero.heading.includes('Vape');
   const nonVapeProducts = products.filter(product => !product.Name.includes('Vape'));
 
-  const maxSlideDistance = useMemo(() => {
+  const maxSlideDistance = () => {
     const { current } = productCards;
     let cardWidth = 0;
     let accumulator = 0;
@@ -69,7 +72,8 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
     });
     accumulator -= (cardWidth * cardMultiplier);
     return -accumulator;
-  }, [productCards.current]);
+  };
+  const dragConstraintLeft = maxSlideDistance();
 
   return (
     <motion.div
@@ -110,11 +114,11 @@ const ResultsPanel = ({ direction, mode, reasons, screenSize, features, setMinHe
             <Headline tag="h1" size="md">Based on your responses, we recommend</Headline>
           </Inner>
           <Inner size="md">
-            <div className="k-fsresults--related">
+            <div className="k-fsresults--related" ref={sliderRef}>
               <motion.div
                 className="k-fsresults--slider"
                 drag="x"
-                dragConstraints={{ right: 0, left: maxSlideDistance }}
+                dragConstraints={{ right: 0, left: dragConstraintLeft }}
               >
                 {isVapeRec && products.map((product, i) => 
                   <div key={i} className="k-productcard" ref={ref => {productCards.current[i] = ref}}>
